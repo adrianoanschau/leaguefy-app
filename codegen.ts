@@ -1,5 +1,6 @@
-import type { CodegenConfig } from "@graphql-codegen/cli";
 import path from "path";
+
+import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const GRAPHQL_PATH = process.env.CODEGEN_SUPABASE_GRAPHQL_PATH!;
@@ -14,9 +15,9 @@ const config: CodegenConfig = {
       },
     },
   },
-  documents: path.resolve(process.cwd(), "src/gql/**/*.graphql"),
+  documents: path.resolve(process.cwd(), "src/schemas/**/*.graphql"),
   generates: {
-    'src/gql/generated.ts': {
+    "src/gql/generated.ts": {
       plugins: [
         "typescript",
         "typescript-operations",
@@ -50,8 +51,8 @@ next?: NextFetchRequestConfig;
       preset: "client",
       plugins: [],
       hooks: {
-        beforeDone: ['prettier --write']
-      }
+        beforeDone: ["prettier --write"],
+      },
     },
     "./graphql.schema.json": {
       plugins: ["introspection"],

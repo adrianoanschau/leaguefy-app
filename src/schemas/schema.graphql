@@ -10,7 +10,3 @@ query GetOrganizations {
     }
   }
 }
-
-type Query {
-  getOrganizations: [Organization!]!
-}

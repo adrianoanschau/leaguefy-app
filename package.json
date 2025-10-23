@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write ./**/*.{js,jsx,ts,tsx}",
     "codegen": "dotenv -e .env.local graphql-codegen --config codegen.ts",
     "predev": "yarn codegen",
     "prestart": "yarn codegen"
@@ -21,6 +23,7 @@
     "react-dom": "19.2.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "@graphql-codegen/add": "^6.0.0",
     "@graphql-codegen/cli": "6.0.1",
     "@graphql-codegen/client-preset": "5.1.0",
@@ -31,9 +34,17 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
+    "@typescript-eslint/parser": "^8.46.2",
     "dotenv-cli": "^10.0.0",
     "eslint": "^9",
-    "eslint-config-next": "16.0.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-next": "^16.0.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.0",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5"

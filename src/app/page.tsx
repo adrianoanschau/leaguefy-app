@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+
 import { useGetOrganizationsQuery } from "@/gql/generated";
 
 export default function Home() {
