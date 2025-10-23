@@ -4,9 +4,20 @@ query GetOrganizations {
       node {
         id
         name
-        user_id
         created_at
       }
+    }
+  }
+}
+
+mutation DeleteOrganization($id: UUID!) {
+  deleteFromOrganizationCollection(
+    filter: {
+      id: { eq: $id }
+    }
+  ) {
+    records {
+      id
     }
   }
 }
