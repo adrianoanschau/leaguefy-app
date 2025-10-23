@@ -1,0 +1,15 @@
+query GetOrganizations {
+  organizationCollection {
+    edges {
+      node {
+        id
+        name
+        created_at
+      }
+    }
+  }
+}
+
+type Query {
+  getOrganizations: [Organization!]!
+}
