@@ -247,6 +247,7 @@ export type Organization = Node & {
   name: Scalars['String']['output'];
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
+  user_id: Scalars['UUID']['output'];
 };
 
 export type OrganizationConnection = {
@@ -280,11 +281,13 @@ export type OrganizationFilter = {
   not?: InputMaybe<OrganizationFilter>;
   /** Returns true if at least one of its inner filters is true, otherwise returns false */
   or?: InputMaybe<Array<OrganizationFilter>>;
+  user_id?: InputMaybe<UuidFilter>;
 };
 
 export type OrganizationInsertInput = {
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  user_id?: InputMaybe<Scalars['UUID']['input']>;
 };
 
 export type OrganizationInsertResponse = {
@@ -299,11 +302,13 @@ export type OrganizationOrderBy = {
   created_at?: InputMaybe<OrderByDirection>;
   id?: InputMaybe<OrderByDirection>;
   name?: InputMaybe<OrderByDirection>;
+  user_id?: InputMaybe<OrderByDirection>;
 };
 
 export type OrganizationUpdateInput = {
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  user_id?: InputMaybe<Scalars['UUID']['input']>;
 };
 
 export type OrganizationUpdateResponse = {
@@ -416,7 +421,7 @@ export type UuidListFilter = {
 export type GetOrganizationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetOrganizationsQuery = { __typename?: 'Query', organizationCollection?: { __typename?: 'OrganizationConnection', edges: Array<{ __typename?: 'OrganizationEdge', node: { __typename?: 'Organization', id: any, name: string, created_at: any } }> } | null };
+export type GetOrganizationsQuery = { __typename?: 'Query', organizationCollection?: { __typename?: 'OrganizationConnection', edges: Array<{ __typename?: 'OrganizationEdge', node: { __typename?: 'Organization', id: any, name: string, user_id: any, created_at: any } }> } | null };
 
 
 
@@ -427,6 +432,7 @@ export const GetOrganizationsDocument = `
       node {
         id
         name
+        user_id
         created_at
       }
     }

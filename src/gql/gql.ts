@@ -14,10 +14,10 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "query GetOrganizations {\n  organizationCollection {\n    edges {\n      node {\n        id\n        name\n        created_at\n      }\n    }\n  }\n}": typeof types.GetOrganizationsDocument,
+    "query GetOrganizations {\n  organizationCollection {\n    edges {\n      node {\n        id\n        name\n        user_id\n        created_at\n      }\n    }\n  }\n}": typeof types.GetOrganizationsDocument,
 };
 const documents: Documents = {
-    "query GetOrganizations {\n  organizationCollection {\n    edges {\n      node {\n        id\n        name\n        created_at\n      }\n    }\n  }\n}": types.GetOrganizationsDocument,
+    "query GetOrganizations {\n  organizationCollection {\n    edges {\n      node {\n        id\n        name\n        user_id\n        created_at\n      }\n    }\n  }\n}": types.GetOrganizationsDocument,
 };
 
 /**
@@ -37,7 +37,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query GetOrganizations {\n  organizationCollection {\n    edges {\n      node {\n        id\n        name\n        created_at\n      }\n    }\n  }\n}"): (typeof documents)["query GetOrganizations {\n  organizationCollection {\n    edges {\n      node {\n        id\n        name\n        created_at\n      }\n    }\n  }\n}"];
+export function graphql(source: "query GetOrganizations {\n  organizationCollection {\n    edges {\n      node {\n        id\n        name\n        user_id\n        created_at\n      }\n    }\n  }\n}"): (typeof documents)["query GetOrganizations {\n  organizationCollection {\n    edges {\n      node {\n        id\n        name\n        user_id\n        created_at\n      }\n    }\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

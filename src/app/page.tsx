@@ -1,7 +1,7 @@
 "use client";
 
-import { useGetOrganizationsQuery } from "@/gql/generated";
 import Image from "next/image";
+import { useGetOrganizationsQuery } from "@/gql/generated";
 
 export default function Home() {
   const { data, isLoading } = useGetOrganizationsQuery();
