@@ -10,6 +10,16 @@ query GetOrganizations {
   }
 }
 
+mutation CreateOrganization($name: String!) {
+  insertIntoOrganizationCollection(
+    objects: [{
+      name: $name
+    }]
+  ) {
+    affectedCount
+  }
+}
+
 mutation DeleteOrganization($id: UUID!) {
   deleteFromOrganizationCollection(
     filter: {

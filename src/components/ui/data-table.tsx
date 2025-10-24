@@ -25,12 +25,12 @@ import {
   TableRow,
 } from "./table";
 
-// Props que o nosso layout de tabela genérico vai aceitar
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  filterColumnId: string; // A coluna que queremos usar para a filtragem
-  filterPlaceholder: string; // O placeholder do input de filtro
+  filterColumnId: string;
+  filterPlaceholder: string;
+  toolbarActions?: React.ReactNode;
 }
 
 export function DataTable<TData, TValue>({
@@ -38,6 +38,7 @@ export function DataTable<TData, TValue>({
   data,
   filterColumnId,
   filterPlaceholder,
+  toolbarActions,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -61,7 +62,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center">
+      <div className="flex items-center justify-between">
         <Input
           placeholder={filterPlaceholder}
           value={
@@ -72,6 +73,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+        {toolbarActions}
       </div>
 
       <div className="rounded-lg border">
@@ -80,15 +82,15 @@ export function DataTable<TData, TValue>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  ))}
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>

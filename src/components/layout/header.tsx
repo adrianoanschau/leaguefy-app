@@ -1,6 +1,3 @@
-import { Plus } from "lucide-react";
-import Link from "next/link";
-
 import {
   Avatar,
   AvatarFallback,
@@ -15,7 +12,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { createClient } from "@/lib/supabase/server";
 
-export async function Header() {
+interface HeaderProps {
+  title: string;
+}
+
+export async function Header({ title }: HeaderProps) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -27,19 +28,10 @@ export async function Header() {
   return (
     <header className="p-6 border-b flex justify-between items-center">
       <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-        Dashboard
+        {title}
       </h1>
 
-      {/* Botão + Avatar */}
       <div className="flex items-center gap-4">
-        <Button asChild className="hidden sm:flex">
-          <Link href="/dashboard/leagues/new">
-            <Plus className="mr-2 h-4 w-4" />
-            Criar Nova Organização
-          </Link>
-        </Button>
-
-        {/* Menu do Usuário */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-10 w-10 rounded-full">

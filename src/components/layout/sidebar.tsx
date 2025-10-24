@@ -1,4 +1,12 @@
-import { Building, Home, Settings, LogOut, Trophy, Users, LayoutGrid } from "lucide-react";
+import {
+  Building,
+  Home,
+  Settings,
+  LogOut,
+  Trophy,
+  Users,
+  LayoutGrid,
+} from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -27,7 +35,7 @@ function NavLink({ href, icon: Icon, children, className }: NavLinkProps) {
   );
 }
 
-export default async function Sidebar({ children }: { children?: ReactNode}) {
+export default async function Sidebar({ children }: { children?: ReactNode }) {
   return (
     <>
       <aside className="hidden md:block">

@@ -704,6 +704,13 @@ export type GetOrganizationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetOrganizationsQuery = { __typename?: 'Query', organizationCollection?: { __typename?: 'OrganizationConnection', edges: Array<{ __typename?: 'OrganizationEdge', node: { __typename?: 'Organization', id: any, name: string, created_at: any } }> } | null };
 
+export type CreateOrganizationMutationVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+
+export type CreateOrganizationMutation = { __typename?: 'Mutation', insertIntoOrganizationCollection?: { __typename?: 'OrganizationInsertResponse', affectedCount: number } | null };
+
 export type DeleteOrganizationMutationVariables = Exact<{
   id: Scalars['UUID']['input'];
 }>;
@@ -765,6 +772,30 @@ useSuspenseGetOrganizationsQuery.getKey = (variables?: GetOrganizationsQueryVari
 
 
 useGetOrganizationsQuery.fetcher = (variables?: GetOrganizationsQueryVariables, options?: RequestInit['headers']) => fetcher<GetOrganizationsQuery, GetOrganizationsQueryVariables>(GetOrganizationsDocument, variables, options);
+
+export const CreateOrganizationDocument = `
+    mutation CreateOrganization($name: String!) {
+  insertIntoOrganizationCollection(objects: [{name: $name}]) {
+    affectedCount
+  }
+}
+    `;
+
+export const useCreateOrganizationMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CreateOrganizationMutation, TError, CreateOrganizationMutationVariables, TContext>) => {
+    
+    return useMutation<CreateOrganizationMutation, TError, CreateOrganizationMutationVariables, TContext>(
+      {
+    mutationKey: ['CreateOrganization'],
+    mutationFn: (variables?: CreateOrganizationMutationVariables) => fetcher<CreateOrganizationMutation, CreateOrganizationMutationVariables>(CreateOrganizationDocument, variables)(),
+    ...options
+  }
+    )};
+
+
+useCreateOrganizationMutation.fetcher = (variables: CreateOrganizationMutationVariables, options?: RequestInit['headers']) => fetcher<CreateOrganizationMutation, CreateOrganizationMutationVariables>(CreateOrganizationDocument, variables, options);
 
 export const DeleteOrganizationDocument = `
     mutation DeleteOrganization($id: UUID!) {
