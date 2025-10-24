@@ -7,5 +7,15 @@ export const organizationSchema = z.object({
 });
 
 export const updateOrganizationSchema = organizationSchema.extend({
-  id: z.string(), 
+  id: z.uuid(), 
+});
+
+export const memberSchema = z.object({
+  org_id: z.uuid(),
+  user_id: z.uuid({ message: "ID de usuário inválido." }),
+  role: z.enum(['manager', 'member']),
+});
+
+export const updateMemberSchema = memberSchema.extend({
+  id: z.uuid(),
 });

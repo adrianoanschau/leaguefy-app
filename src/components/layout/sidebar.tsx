@@ -1,6 +1,5 @@
 import {
   Building,
-  Home,
   Settings,
   LogOut,
   Trophy,
@@ -8,7 +7,7 @@ import {
   LayoutGrid,
 } from "lucide-react";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 
 import { Avatar } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
@@ -35,7 +34,12 @@ function NavLink({ href, icon: Icon, children, className }: NavLinkProps) {
   );
 }
 
-export default async function Sidebar({ children }: { children?: ReactNode }) {
+interface SidebarProps {
+  isAdmin?: boolean;
+  children: React.ReactNode;
+}
+
+export default async function Sidebar({ isAdmin, children }: SidebarProps & PropsWithChildren) {
   return (
     <>
       <aside className="hidden md:block">
@@ -62,13 +66,15 @@ export default async function Sidebar({ children }: { children?: ReactNode }) {
             >
               Dashboard
             </NavLink>
-            <NavLink
-              href="/organizations"
-              className="hover:bg-violet-500/10 hover:text-violet-500"
-              icon={Building}
-            >
-              Organizações
-            </NavLink>
+            {isAdmin && (
+              <NavLink
+                href="/organizations"
+                className="hover:bg-violet-500/10 hover:text-violet-500"
+                icon={Building}
+              >
+                Organizações
+              </NavLink>
+            )}
             <NavLink
               href="/tournaments"
               className="hover:bg-orange-500/10 hover:text-orange-500"

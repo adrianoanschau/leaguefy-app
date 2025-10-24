@@ -62,7 +62,7 @@ function EntityDrawerFormComponent<T extends { id: string }>({
           </SheetDescription>
         </SheetHeader>
 
-        <div className="py-8">
+        <div className="px-4 py-8">
           <FormComponent defaultValues={defaultValues} onSubmit={onSubmit} onSuccess={() => setIsOpen(false)} />
         </div>
       </SheetContent>

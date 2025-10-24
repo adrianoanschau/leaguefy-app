@@ -17,9 +17,15 @@ export default async function ProtectedLayout({
     redirect("/auth/login");
   }
 
+  const { data: profile } = await supabase
+    .from("Profile")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[240px_1fr] bg-muted">
-      <Sidebar>
+      <Sidebar isAdmin={profile?.role === 'admin'}>
         {children}
       </Sidebar>
     </div>

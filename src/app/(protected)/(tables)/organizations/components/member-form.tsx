@@ -15,11 +15,10 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { organizationSchema, updateOrganizationSchema } from "../schema";
+import { memberSchema, updateMemberSchema } from "../schema";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -30,24 +29,24 @@ function SubmitButton() {
   );
 }
 
-type OrganizationFormProps = {
-  defaultValues?: z.infer<typeof updateOrganizationSchema> | null;
+type MemberFormProps = {
+  defaultValues?: z.infer<typeof updateMemberSchema> | null;
   onSubmit: (formData: FormData) => Promise<FormState>;
   onSuccess: () => void;
 };
 
-export function OrganizationForm({ defaultValues, onSubmit, onSuccess }: OrganizationFormProps) {
+export function MemberForm({ defaultValues, onSubmit, onSuccess }: MemberFormProps) {
   const initialState: FormState = { success: false, message: "" };
 
   const [formState, dispatch] = useActionState((_: FormState, formData: FormData) => onSubmit(formData), initialState);
 
-  const form = useForm<z.infer<typeof organizationSchema>>({
-    resolver: zodResolver(organizationSchema),
-    defaultValues: defaultValues || { name: "" },
+  const form = useForm<z.infer<typeof memberSchema>>({
+    resolver: zodResolver(memberSchema),
+    defaultValues: defaultValues || { org_id: "", user_id: "", role: "member" },
   });
 
   useEffect(() => {
-    form.reset(defaultValues || { name: "" });
+    form.reset(defaultValues || { org_id: "", user_id: "", role: "member" });
   }, [defaultValues, form]);
 
   useEffect(() => {
@@ -67,17 +66,28 @@ export function OrganizationForm({ defaultValues, onSubmit, onSuccess }: Organiz
           {defaultValues && defaultValues.id && (
             <input type="hidden" name="id" value={defaultValues.id} />
           )}
+          {defaultValues && defaultValues.org_id && (
+            <input type="hidden" name="org_id" value={defaultValues.org_id} />
+          )}
 
           <FormField
-            control={form.control}
-            name="name"
+            name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nome da Organização</FormLabel>
+                <FormLabel>Email do Membro</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ex: Liga de Fim de Semana" {...field} />
+                  <Input placeholder="membro@email.com" {...field} />
                 </FormControl>
-                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            name="role"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Função</FormLabel>
+                {/* (Use um <Select> do Shadcn aqui para 'manager' ou 'member') */}
               </FormItem>
             )}
           />

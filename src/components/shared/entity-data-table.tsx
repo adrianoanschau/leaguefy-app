@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { EntityDrawerForm, DrawerRef } from "./entity-drawer-form";
+import { redirect } from "next/navigation";
 
 interface EntityDataTableProps<T extends { id: string }> {
   createButtonText: string;
@@ -58,6 +59,10 @@ export function EntityDataTable<T extends { id: string }>({
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [isPending, startTransition] = useTransition();
   const drawerRef = useRef<DrawerRef>(null);
+
+  const handleViewClick = (row: T) => {
+    redirect(`/organizations/${row.id}`);
+  };
 
   const handleEditClick = (register: T) => {
     setRegisterForEdit(register);
@@ -179,6 +184,7 @@ export function EntityDataTable<T extends { id: string }>({
         filterColumnId="name"
         filterPlaceholder="Filtrar por nome..."
         toolbarActions={formAction}
+        onRowClick={(row) => handleViewClick(row)}
       />
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>

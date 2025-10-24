@@ -194,18 +194,24 @@ export type Mutation = {
   deleteFromOrganizationMemberCollection: OrganizationMemberDeleteResponse;
   /** Deletes zero or more records from the `Profile` collection */
   deleteFromProfileCollection: ProfileDeleteResponse;
+  /** Deletes zero or more records from the `Tournament` collection */
+  deleteFromTournamentCollection: TournamentDeleteResponse;
   /** Adds one or more `Organization` records to the collection */
   insertIntoOrganizationCollection?: Maybe<OrganizationInsertResponse>;
   /** Adds one or more `OrganizationMember` records to the collection */
   insertIntoOrganizationMemberCollection?: Maybe<OrganizationMemberInsertResponse>;
   /** Adds one or more `Profile` records to the collection */
   insertIntoProfileCollection?: Maybe<ProfileInsertResponse>;
+  /** Adds one or more `Tournament` records to the collection */
+  insertIntoTournamentCollection?: Maybe<TournamentInsertResponse>;
   /** Updates zero or more records in the `Organization` collection */
   updateOrganizationCollection: OrganizationUpdateResponse;
   /** Updates zero or more records in the `OrganizationMember` collection */
   updateOrganizationMemberCollection: OrganizationMemberUpdateResponse;
   /** Updates zero or more records in the `Profile` collection */
   updateProfileCollection: ProfileUpdateResponse;
+  /** Updates zero or more records in the `Tournament` collection */
+  updateTournamentCollection: TournamentUpdateResponse;
 };
 
 
@@ -231,6 +237,13 @@ export type MutationDeleteFromProfileCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
+export type MutationDeleteFromTournamentCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<TournamentFilter>;
+};
+
+
+/** The root type for creating and mutating data */
 export type MutationInsertIntoOrganizationCollectionArgs = {
   objects: Array<OrganizationInsertInput>;
 };
@@ -245,6 +258,12 @@ export type MutationInsertIntoOrganizationMemberCollectionArgs = {
 /** The root type for creating and mutating data */
 export type MutationInsertIntoProfileCollectionArgs = {
   objects: Array<ProfileInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntoTournamentCollectionArgs = {
+  objects: Array<TournamentInsertInput>;
 };
 
 
@@ -269,6 +288,14 @@ export type MutationUpdateProfileCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<ProfileFilter>;
   set: ProfileUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateTournamentCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<TournamentFilter>;
+  set: TournamentUpdateInput;
 };
 
 export type Node = {
@@ -565,6 +592,8 @@ export type Query = {
   organizationMemberCollection?: Maybe<OrganizationMemberConnection>;
   /** A pagable collection of type `Profile` */
   profileCollection?: Maybe<ProfileConnection>;
+  /** A pagable collection of type `Tournament` */
+  tournamentCollection?: Maybe<TournamentConnection>;
 };
 
 
@@ -607,6 +636,18 @@ export type QueryProfileCollectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<ProfileOrderBy>>;
+};
+
+
+/** The root type for querying data */
+export type QueryTournamentCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<TournamentFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<TournamentOrderBy>>;
 };
 
 /** Boolean expression comparing fields on type "String" */
@@ -654,6 +695,82 @@ export type TimeListFilter = {
   eq?: InputMaybe<Array<Scalars['Time']['input']>>;
   is?: InputMaybe<FilterIs>;
   overlaps?: InputMaybe<Array<Scalars['Time']['input']>>;
+};
+
+export type Tournament = Node & {
+  __typename?: 'Tournament';
+  created_at: Scalars['Datetime']['output'];
+  id: Scalars['UUID']['output'];
+  name: Scalars['String']['output'];
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID']['output'];
+};
+
+export type TournamentConnection = {
+  __typename?: 'TournamentConnection';
+  edges: Array<TournamentEdge>;
+  pageInfo: PageInfo;
+};
+
+export type TournamentDeleteResponse = {
+  __typename?: 'TournamentDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Tournament>;
+};
+
+export type TournamentEdge = {
+  __typename?: 'TournamentEdge';
+  cursor: Scalars['String']['output'];
+  node: Tournament;
+};
+
+export type TournamentFilter = {
+  /** Returns true only if all its inner filters are true, otherwise returns false */
+  and?: InputMaybe<Array<TournamentFilter>>;
+  created_at?: InputMaybe<DatetimeFilter>;
+  id?: InputMaybe<UuidFilter>;
+  name?: InputMaybe<StringFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  /** Negates a filter */
+  not?: InputMaybe<TournamentFilter>;
+  /** Returns true if at least one of its inner filters is true, otherwise returns false */
+  or?: InputMaybe<Array<TournamentFilter>>;
+};
+
+export type TournamentInsertInput = {
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  id?: InputMaybe<Scalars['UUID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TournamentInsertResponse = {
+  __typename?: 'TournamentInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Tournament>;
+};
+
+export type TournamentOrderBy = {
+  created_at?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  name?: InputMaybe<OrderByDirection>;
+};
+
+export type TournamentUpdateInput = {
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  id?: InputMaybe<Scalars['UUID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TournamentUpdateResponse = {
+  __typename?: 'TournamentUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Tournament>;
 };
 
 /** Boolean expression comparing fields on type "UUID" */
