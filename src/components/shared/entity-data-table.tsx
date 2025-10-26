@@ -28,7 +28,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { EntityDrawerForm, DrawerRef } from "./entity-drawer-form";
-import { redirect } from "next/navigation";
 
 interface EntityDataTableProps<T extends { id: string }> {
   createButtonText: string;
@@ -40,6 +39,7 @@ interface EntityDataTableProps<T extends { id: string }> {
     subtitle: string;
   };
   formComponent: React.ComponentType<{ defaultValues?: T | null; onSubmit: (formData: FormData) => Promise<FormState>; onSuccess: () => void; }>;
+  onRowClick: (row: T) => void;
   onDelete: (id: string) => Promise<{ success: boolean; message: string }>;
   onSubmitForm: (formData: FormData) => Promise<FormState>;
 }
@@ -51,6 +51,7 @@ export function EntityDataTable<T extends { id: string }>({
   error,
   drawerProps,
   formComponent,
+  onRowClick,
   onSubmitForm,
   onDelete,
 }: EntityDataTableProps<T>) {
@@ -59,10 +60,6 @@ export function EntityDataTable<T extends { id: string }>({
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [isPending, startTransition] = useTransition();
   const drawerRef = useRef<DrawerRef>(null);
-
-  const handleViewClick = (row: T) => {
-    redirect(`/organizations/${row.id}`);
-  };
 
   const handleEditClick = (register: T) => {
     setRegisterForEdit(register);
@@ -184,7 +181,7 @@ export function EntityDataTable<T extends { id: string }>({
         filterColumnId="name"
         filterPlaceholder="Filtrar por nome..."
         toolbarActions={formAction}
-        onRowClick={(row) => handleViewClick(row)}
+        onRowClick={onRowClick}
       />
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>
