@@ -50,7 +50,7 @@ export function TournamentEditor() {
     return {
       id: `${NodeType.Stage}-${Date.now()}`,
       type: NodeType.Stage,
-      position: { x: position.x + (200 * (side === 'left' ? -1 : 1)), y: position.y },
+      position: { x: position.x + (250 * (side === 'left' ? -1 : 1)), y: -50 },
       data: {},
     };
   }
@@ -84,7 +84,8 @@ export function TournamentEditor() {
   }, []);
 
   const nodesWithData = useMemo(() => nodes.map(node => {
-    const isConnected = edges.some(edge => edge.source === node.id);
+    const isRightConnected = edges.some(edge => edge.source === node.id);
+    const isLeftConnected = edges.some(edge => edge.target === node.id);
 
     if (node.id === NodeType.Trigger) {
       return {
@@ -93,7 +94,7 @@ export function TournamentEditor() {
           ...node.data,
           onConfigClick: handleConfigClick,
           onAddClick: handleAddClick,
-          isConnected,
+          isConnected: isRightConnected,
         }
       };
     }
@@ -105,7 +106,8 @@ export function TournamentEditor() {
         onConfigClick: handleConfigClick,
         onAddClick: handleAddClick,
         onTrashClick: handleTrashClick,
-        isConnected,
+        isLeftConnected,
+        isRightConnected,
       }
     };
   }), [nodes, edges, handleConfigClick, handleAddClick, handleTrashClick]);
